@@ -37,7 +37,7 @@ import java.util.Scanner;
 
         Scanner sc = new Scanner(System.in);
         System.out.println("Enter pin");
-        pin=sc.toString();
+        pin=sc.nextLine();
 
         //FOR LOOP
         for (int i = 0; i < accounts.length; i++) {
@@ -72,7 +72,7 @@ import java.util.Scanner;
 
         Scanner t = new Scanner(System.in);
 
-        System.out.print("Choose Transaction: \n   C-check balance \n- W-withdraw  \n D-deposit \n E-exit  ");
+        System.out.print("Choose Transaction: \n C-check balance \n W-withdraw  \n D-deposit \n E-exit  \n  ");
         transaction = t.next().charAt(0);
 
         switch (Character.toUpperCase(transaction))
@@ -111,6 +111,28 @@ import java.util.Scanner;
     }
 
     private static void withdraw() {
+        int withdrawnAmount;
+        Scanner b = new Scanner(System.in);
+        System.out.println("Please input amount to withdraw:");
+        withdrawnAmount=b.nextInt();
+
+
+        if (withdrawnAmount< balance) {
+            System.out.println("Insufficient Balance");
+        }
+        else if (withdrawnAmount<100) {
+            System.out.println("Invalid amount");
+        }
+
+
+        else {
+
+            balance=balance-withdrawnAmount;
+            System.out.println("Transaction successful. Please get your cash.");
+            System.exit(0);
+        }
+
+
 
     }
 
@@ -118,21 +140,24 @@ import java.util.Scanner;
     private static void deposit() {
 
         // WHILE LOOP
-
-        while(balance >= 0) {
-
             int depositedAmount;
             Scanner b = new Scanner(System.in);
             System.out.println("Please input amount to deposit:");
             depositedAmount=b.nextInt();
 
-            balance= balance + depositedAmount;
+            while(depositedAmount <=0) {
+                System.out.println("Invalid Amount");
+                System.out.println("Please input amount to deposit:");
+                depositedAmount=b.nextInt();
 
-            System.out.println("Your new balance is:" + balance);
-            balance++;
         }
 
 
+        balance= balance + depositedAmount;
+        System.out.println("Your new balance is:" + balance);
+        System.out.println("Transaction Successful. Thank you." );
+
+        choosingOfTransactions();
 
     }
 
